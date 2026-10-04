@@ -1,4 +1,4 @@
-# Synq local meeting API
+# Synqd local meeting API
 
 Python Azure Functions v2 programming model. The existing anonymous health endpoint is unchanged. Meetings and follow-ups use the process-local repository; the frontend calls this local API. No external integration is connected.
 
