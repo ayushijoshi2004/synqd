@@ -1,0 +1,8 @@
+
+
+.env
+.env.*
+local.settings.json
+.venv*/
+tests/
+__pycache__/

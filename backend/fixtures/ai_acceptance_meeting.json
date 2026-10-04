@@ -1,0 +1,74 @@
+{
+  "title": "Synq AI acceptance review",
+  "date": "2026-10-07",
+  "startTime": "10:00",
+  "endTime": "10:30",
+  "project": "AI acceptance",
+  "team": "QA",
+  "participants": [
+    {
+      "id": "qa-maya",
+      "name": "Maya Chen",
+      "color": "#c96f4a"
+    },
+    {
+      "id": "qa-alex",
+      "name": "Alex Rivera",
+      "color": "#3f7cac"
+    }
+  ],
+  "agenda": "QA status\nBudget\nLaunch timeline",
+  "status": "ended",
+  "aiStatus": "unprocessed",
+  "preview": "",
+  "agendaEntries": [
+    {
+      "title": "QA status",
+      "timestamp": "",
+      "completed": false
+    },
+    {
+      "title": "Budget",
+      "timestamp": "",
+      "completed": false
+    },
+    {
+      "title": "Launch timeline",
+      "timestamp": "",
+      "completed": false
+    }
+  ],
+  "transcript": [
+    {
+      "timestamp": "00:10",
+      "speaker": {
+        "id": "qa-maya",
+        "name": "Maya Chen",
+        "color": "#c96f4a"
+      },
+      "text": "QA regression checks are complete and checkout tests passed. We agreed to release on October 9."
+    },
+    {
+      "timestamp": "01:20",
+      "speaker": {
+        "id": "qa-alex",
+        "name": "Alex Rivera",
+        "color": "#3f7cac"
+      },
+      "text": "I will update the release checklist by Friday. We have not decided who will own the support rota."
+    },
+    {
+      "timestamp": "",
+      "speaker": {
+        "id": "qa-maya",
+        "name": "Maya Chen",
+        "color": "#c96f4a"
+      },
+      "text": "We should meet again to review support coverage. We have not chosen a date, time, or attendees for that review."
+    }
+  ],
+  "decisions": [],
+  "actionItems": [],
+  "followUps": [],
+  "unresolvedItems": []
+}

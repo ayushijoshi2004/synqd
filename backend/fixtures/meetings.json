@@ -1,0 +1,417 @@
+[
+  {
+    "id": "m1",
+    "title": "Atlas Launch Readiness",
+    "date": "2026-09-29",
+    "startTime": "10:00",
+    "endTime": "10:48",
+    "project": "Atlas Launch",
+    "team": "Product",
+    "participants": [
+      {
+        "id": "maya",
+        "name": "Maya Chen",
+        "color": "#c96f4a"
+      },
+      {
+        "id": "alex",
+        "name": "Alex Rivera",
+        "color": "#3f7cac"
+      },
+      {
+        "id": "priya",
+        "name": "Priya Nair",
+        "color": "#7a5ea8"
+      },
+      {
+        "id": "sam",
+        "name": "Sam Okafor",
+        "color": "#b08a1f"
+      }
+    ],
+    "agenda": "QA status\nPayment edge cases\nLaunch date\nDesign scope\nNext meeting",
+    "status": "ended",
+    "aiStatus": "processed",
+    "preview": "Launch moves to Oct 22 after QA flagged payment edge cases. 5 action items, 2 decisions.",
+    "agendaEntries": [
+      {
+        "title": "QA status",
+        "timestamp": "00:42",
+        "completed": true
+      },
+      {
+        "title": "Payment edge cases",
+        "timestamp": "03:15",
+        "completed": true
+      },
+      {
+        "title": "Launch date",
+        "timestamp": "18:54",
+        "completed": true
+      },
+      {
+        "title": "Design scope",
+        "timestamp": "12:30",
+        "completed": true
+      },
+      {
+        "title": "Next meeting",
+        "timestamp": "31:05",
+        "completed": false
+      }
+    ],
+    "summary": {
+      "beforeHighlight": "The team is moving the Atlas launch to ",
+      "highlight": "October 22",
+      "afterHighlight": " to fix two payment bugs, add a status page, and lock design scope by Friday.",
+      "points": [
+        "QA found 2 payment edge cases: declined retries and JPY rounding.",
+        "Support needs a customer status page before go-live.",
+        "Design commits to checkout error states by Oct 3."
+      ]
+    },
+    "transcript": [
+      {
+        "timestamp": "00:42",
+        "speaker": {
+          "id": "maya",
+          "name": "Maya Chen",
+          "color": "#c96f4a"
+        },
+        "text": "Let's start with where QA landed. Anything blocking us for the 15th?"
+      },
+      {
+        "timestamp": "03:15",
+        "speaker": {
+          "id": "alex",
+          "name": "Alex Rivera",
+          "color": "#3f7cac"
+        },
+        "text": "Two payment edge cases: declined cards on retry, and currency rounding for JPY."
+      },
+      {
+        "timestamp": "06:08",
+        "speaker": {
+          "id": "sam",
+          "name": "Sam Okafor",
+          "color": "#b08a1f"
+        },
+        "text": "Support is also asking for a status page before launch. That's a real risk if we slip."
+      },
+      {
+        "timestamp": "12:30",
+        "speaker": {
+          "id": "priya",
+          "name": "Priya Nair",
+          "color": "#7a5ea8"
+        },
+        "text": "Design can finish the checkout error states by Friday if we lock scope today."
+      },
+      {
+        "timestamp": "18:54",
+        "speaker": {
+          "id": "maya",
+          "name": "Maya Chen",
+          "color": "#c96f4a"
+        },
+        "text": "Then I propose we move launch to October 22 and use the week for hardening."
+      },
+      {
+        "timestamp": "19:40",
+        "speaker": {
+          "id": "alex",
+          "name": "Alex Rivera",
+          "color": "#3f7cac"
+        },
+        "text": "Agreed. I'll file tickets for both payment bugs today."
+      },
+      {
+        "timestamp": "31:05",
+        "speaker": {
+          "id": "maya",
+          "name": "Maya Chen",
+          "color": "#c96f4a"
+        },
+        "text": "Let's hold a design review next Tuesday at 2 PM with Alex and Priya."
+      }
+    ],
+    "decisions": [
+      {
+        "id": "d1",
+        "text": "Move Atlas launch from October 15 to October 22.",
+        "note": "Driven by two open payment bugs and a missing status page.",
+        "participant": {
+          "id": "maya",
+          "name": "Maya Chen",
+          "color": "#c96f4a"
+        },
+        "timestamp": "18:54"
+      },
+      {
+        "id": "d2",
+        "text": "Lock checkout scope today; no new states after Friday.",
+        "note": "Design commits to Friday delivery in exchange.",
+        "participant": {
+          "id": "priya",
+          "name": "Priya Nair",
+          "color": "#7a5ea8"
+        },
+        "timestamp": "12:30"
+      }
+    ],
+    "actionItems": [
+      {
+        "id": "t1",
+        "text": "Fix declined-card retry bug",
+        "due": "Oct 1",
+        "status": "todo",
+        "assignee": {
+          "id": "alex",
+          "name": "Alex Rivera",
+          "color": "#3f7cac"
+        }
+      },
+      {
+        "id": "t2",
+        "text": "Patch JPY currency rounding",
+        "due": "Oct 2",
+        "status": "in_progress",
+        "assignee": {
+          "id": "alex",
+          "name": "Alex Rivera",
+          "color": "#3f7cac"
+        }
+      },
+      {
+        "id": "t3",
+        "text": "Finish checkout error states",
+        "due": "Oct 3",
+        "status": "todo",
+        "assignee": {
+          "id": "priya",
+          "name": "Priya Nair",
+          "color": "#7a5ea8"
+        }
+      },
+      {
+        "id": "t4",
+        "text": "Publish customer status page",
+        "due": "Oct 10",
+        "status": "todo",
+        "assignee": {
+          "id": "sam",
+          "name": "Sam Okafor",
+          "color": "#b08a1f"
+        }
+      },
+      {
+        "id": "t5",
+        "text": "Update launch comms timeline",
+        "due": "Oct 6",
+        "status": "done",
+        "assignee": {
+          "id": "maya",
+          "name": "Maya Chen",
+          "color": "#c96f4a"
+        }
+      }
+    ],
+    "followUps": [
+      {
+        "id": "f1",
+        "title": "Checkout follow-up",
+        "date": "2026-10-07",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "project": "Atlas Launch",
+        "team": "Design",
+        "agenda": "Review checkout changes and outstanding questions",
+        "participants": [
+          {
+            "id": "maya",
+            "name": "Maya Chen",
+            "color": "#c96f4a"
+          },
+          {
+            "id": "alex",
+            "name": "Alex Rivera",
+            "color": "#3f7cac"
+          },
+          {
+            "id": "priya",
+            "name": "Priya Nair",
+            "color": "#7a5ea8"
+          }
+        ],
+        "status": "suggested",
+        "sourceMeetingId": "m1"
+      },
+      {
+        "id": "f3",
+        "title": "Launch retro prep",
+        "date": "2026-10-09",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "project": "Atlas Launch",
+        "team": "Product",
+        "agenda": "Prepare launch retrospective",
+        "participants": [
+          {
+            "id": "maya",
+            "name": "Maya Chen",
+            "color": "#c96f4a"
+          },
+          {
+            "id": "alex",
+            "name": "Alex Rivera",
+            "color": "#3f7cac"
+          }
+        ],
+        "status": "suggested",
+        "sourceMeetingId": "m1"
+      }
+    ],
+    "projectOverview": {
+      "name": "Atlas Launch",
+      "description": "Ship the new checkout and onboarding experience.",
+      "previousLaunchDate": "Oct 15",
+      "launchDate": "Oct 22",
+      "resources": [
+        "Launch Brief.pdf",
+        "Payment QA Report",
+        "Checkout Wireframes.fig",
+        "Launch Comms Plan"
+      ],
+      "additionalResourceCount": 2,
+      "previousMeetingCount": 6,
+      "relatedResources": [
+        "Project timeline",
+        "Brand assets"
+      ]
+    },
+    "assistant": {
+      "scopeLabel": "Searching 18 meetings across 3 projects",
+      "suggestions": [
+        "What did we decide about the launch date?",
+        "What are my action items?",
+        "What changed from our last meeting?"
+      ]
+    }
+  },
+  {
+    "id": "m3",
+    "title": "Weekly Growth Sync",
+    "date": "2026-09-25",
+    "startTime": "09:30",
+    "endTime": "10:05",
+    "agenda": "Referral conversion",
+    "project": "Growth Loop",
+    "team": "Marketing",
+    "status": "ended",
+    "aiStatus": "processing",
+    "preview": "Transcript is being analyzed. Early signal: referral conversion up 12% week over week.",
+    "participants": [
+      {
+        "id": "sam",
+        "name": "Sam Okafor",
+        "color": "#b08a1f"
+      },
+      {
+        "id": "jo",
+        "name": "Jo Lindqvist",
+        "color": "#2f6f5e"
+      }
+    ],
+    "followUps": [
+      {
+        "id": "f2",
+        "title": "Growth follow-up",
+        "date": "2026-10-05",
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "project": "Growth Loop",
+        "team": "Marketing",
+        "agenda": "Review referral conversion",
+        "participants": [
+          {
+            "id": "sam",
+            "name": "Sam Okafor",
+            "color": "#b08a1f"
+          },
+          {
+            "id": "jo",
+            "name": "Jo Lindqvist",
+            "color": "#2f6f5e"
+          }
+        ],
+        "status": "suggested",
+        "sourceMeetingId": "m3"
+      }
+    ]
+  },
+  {
+    "id": "m4",
+    "title": "Design Review",
+    "date": "2026-10-06",
+    "startTime": "14:00",
+    "endTime": "14:45",
+    "project": "Atlas Launch",
+    "team": "Design",
+    "participants": [
+      {
+        "id": "maya",
+        "name": "Maya Chen",
+        "color": "#c96f4a"
+      },
+      {
+        "id": "alex",
+        "name": "Alex Rivera",
+        "color": "#3f7cac"
+      },
+      {
+        "id": "priya",
+        "name": "Priya Nair",
+        "color": "#7a5ea8"
+      }
+    ],
+    "agenda": "Final checkout states\nEmpty states\nMotion specs",
+    "status": "scheduled",
+    "aiStatus": "unprocessed",
+    "preview": "Suggested agenda from last meeting: final checkout states, empty states, motion specs."
+  },
+  {
+    "id": "m5",
+    "title": "Q4 Roadmap Planning",
+    "date": "2026-10-08",
+    "startTime": "11:00",
+    "endTime": "12:00",
+    "project": "Roadmap",
+    "team": "Leadership",
+    "participants": [
+      {
+        "id": "maya",
+        "name": "Maya Chen",
+        "color": "#c96f4a"
+      },
+      {
+        "id": "sam",
+        "name": "Sam Okafor",
+        "color": "#b08a1f"
+      },
+      {
+        "id": "jo",
+        "name": "Jo Lindqvist",
+        "color": "#2f6f5e"
+      },
+      {
+        "id": "alex",
+        "name": "Alex Rivera",
+        "color": "#3f7cac"
+      }
+    ],
+    "agenda": "Review Q4 themes and unresolved decisions",
+    "status": "scheduled",
+    "aiStatus": "unprocessed",
+    "preview": "AI brief: 3 unresolved decisions carried over from the September planning session."
+  }
+]

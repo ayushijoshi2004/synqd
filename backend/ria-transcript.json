@@ -1,0 +1,16 @@
+{
+  "status": "ended",
+  "transcript": [
+    {"timestamp":"00:15","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"I wanted to talk about the communication issues we have been having with Ria. Over the last two weeks, she has missed two standups without telling anyone, and yesterday she left the design review halfway through."},
+    {"timestamp":"01:05","speaker":{"id":"1791063076869-jsour3pwtq","name":"alex","color":"#2f6f5e"},"text":"I have noticed she has been responding aggressively when people question her implementation choices. During Tuesday's review, she told Jordan that his feedback was a waste of time."},
+    {"timestamp":"02:10","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"I do not want us to assume why she is acting differently. We should speak with her privately before making any decisions."},
+    {"timestamp":"03:00","speaker":{"id":"1791063076869-jsour3pwtq","name":"alex","color":"#2f6f5e"},"text":"Agreed. Let us not escalate this to HR yet. We should give her a chance to explain first."},
+    {"timestamp":"03:40","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"We have decided the first step is a private conversation with Ria. I will schedule that conversation with her by Friday."},
+    {"timestamp":"04:25","speaker":{"id":"1791063076869-jsour3pwtq","name":"alex","color":"#2f6f5e"},"text":"I will document the specific incidents we have seen. I will have that ready by Thursday."},
+    {"timestamp":"05:15","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"Jordan has already told me he is uncomfortable speaking during reviews now."},
+    {"timestamp":"06:05","speaker":{"id":"1791063076869-jsour3pwtq","name":"alex","color":"#2f6f5e"},"text":"We still do not know whether anyone else on the team feels the same way."},
+    {"timestamp":"07:00","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"Let us leave that unresolved for now. After I speak with Ria, you and I should meet again and decide whether we need to involve People Ops."},
+    {"timestamp":"07:45","speaker":{"id":"1791063076869-jsour3pwtq","name":"alex","color":"#2f6f5e"},"text":"Let us meet next Monday at 2 PM for 30 minutes. Just you and me."},
+    {"timestamp":"08:20","speaker":{"id":"1791063076869-6y39ban0pxg","name":"Maya","color":"#2f6f5e"},"text":"So no HR escalation right now, I will speak with Ria by Friday, you will document the incidents by Thursday, and we will reassess Monday."}
+  ]
+}

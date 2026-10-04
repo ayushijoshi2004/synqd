@@ -1,0 +1,15 @@
+**/node_modules/
+**/dist/
+**/.env
+**/.env.*
+**/local.settings.json
+**/.venv*/
+**/__pycache__/
+**/*.pyc
+.DS_Store
+__MACOSX/
+
+# Azurite generated files
+__azurite_db_*.json
+__blobstorage__/
+__queuestorage__/
