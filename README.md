@@ -1,4 +1,4 @@
-# Recall
+# Synqd
 
 A practical refactor of the existing React + TypeScript + Vite demo. The Meetings → Meeting Detail and Calendar screens retain their original layout, styling, content, and interaction flow. Project information remains part of meetings, including the existing grouping toggle on the Meetings page.
 
