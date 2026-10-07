@@ -35,7 +35,9 @@ class JiraServiceTests(unittest.TestCase):
         item, created = self.service.create_jira_issue("m1", "t1", jira)
         self.assertTrue(created)
         self.assertEqual((item["jiraIssueKey"], item["jiraIssueUrl"]), ("KAN-8", URL))
-        jira.create_task.assert_called_once_with("Fix declined-card retry bug")
+        jira.create_task.assert_called_once()
+        self.assertEqual(jira.create_task.call_args.args, ("Fix declined-card retry bug",))
+        self.assertIn("assignee_account_id", jira.create_task.call_args.kwargs)
         # The stored meeting carries the metadata, and no other item does.
         self.assertEqual(self.task("t1")["jiraIssueKey"], "KAN-8")
         self.assertEqual(self.task("t1")["jiraIssueUrl"], URL)

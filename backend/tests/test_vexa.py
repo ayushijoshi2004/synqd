@@ -53,7 +53,7 @@ class VexaTests(unittest.TestCase):
         args, kwargs = self.http.call_args
         self.assertEqual(args, ("POST", "https://api.cloud.vexa.ai/bots"))
         self.assertEqual(kwargs["headers"]["X-API-Key"], "test-bot")
-        self.assertEqual(kwargs["json"], {"platform": "google_meet", "native_meeting_id": MEET_ID, "bot_name": "Synq AI"})
+        self.assertEqual(kwargs["json"], {"platform": "google_meet", "native_meeting_id": MEET_ID, "bot_name": "Synq AI", "recording_enabled": True, "transcribe_enabled": True, "transcription_tier": "realtime"})
         self.assertFalse(kwargs["allow_redirects"])
 
     def test_transcript_endpoint_strict_completed_and_transcript_key(self):

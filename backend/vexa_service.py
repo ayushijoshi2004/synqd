@@ -63,7 +63,7 @@ def _request(method, path, key_name, **kwargs):
         raise VexaError("Transcript not found yet. The bot may still be joining.", "transcript_not_found", 404)
     if not 200 <= status < 300:
         raise VexaError(
-        f"Vexa could not complete the request. Status: {status}. Response: {response.text}",
+        f"Vexa could not complete the request (status {status}). Please try again.",
         "vexa_upstream_error"
     )
     try:
