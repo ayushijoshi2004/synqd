@@ -1,109 +1,139 @@
 # Synqd
 
-A practical refactor of the existing React + TypeScript + Vite demo. The Meetings → Meeting Detail and Calendar screens retain their original layout, styling, content, and interaction flow. Project information remains part of meetings, including the existing grouping toggle on the Meetings page.
+Synqd is a GirlHacks meeting-assistant project built with React, TypeScript, and a Python Azure Functions backend. It brings meeting transcripts, AI-generated summaries, decisions, action items, and follow-up scheduling into one dashboard.
 
-The existing application lives in `frontend/`. `backend/` is empty and reserved for the future Python Azure Functions backend. The frontend will communicate with it over HTTP/JSON; Azure Cosmos DB is an external service, so there is no database source folder.
+## Implemented features
 
-## Run
+- Meeting creation, editing, deletion, and project grouping with Azure Cosmos DB persistence.
+- Google Meet bot integration through Vexa, transcript synchronization, and explicit transcription controls.
+- Gemini-based post-meeting analysis with structured output validation and transcript-evidence checks.
+- Meeting-scoped “Ask Synqd” questions, using the selected meeting as context.
+- Action-item tracking and conversion into Jira issues.
+- Follow-up review, approval, and dismissal, with optional Google Calendar event creation and invitations.
+- Loading/error states, stale-response protection, and retry/concurrency handling across several workflows.
 
-Use Node 22.12+ (or a newer supported Node release) and pnpm.
+External features require your own configured service accounts and credentials. The repository includes fixtures and some demo project metadata; it is a hackathon prototype. Authentication and user-specific access isolation are not implemented in the application routes.
+
+## Stack
+
+| Layer | Technologies |
+| --- | --- |
+| Frontend | React 19, TypeScript, Vite, Tailwind CSS |
+| Backend | Python, Azure Functions v2 programming model |
+| Persistence | Azure Cosmos DB |
+| AI | Gemini REST API for processing; Google Gen AI SDK for Q&A |
+| Integrations | Vexa, Jira, Google Calendar OAuth |
+
+## Local setup
+
+Prerequisites: Node 22.12+ and pnpm; Python 3.13; Azure Functions Core Tools v4; Azurite for local Functions storage; an existing Cosmos DB database/container. The Cosmos adapter expects a container partition key of `/id`.
+
+### 1. Backend configuration
+
+```sh
+cd backend
+python3.13 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+cp local.settings.json.example local.settings.json
+```
+
+If you already have working `local.settings.json`, keep it and add only missing settings from the example. Fill in your real values under `Values`. Azure Functions loads this file; the backend does not automatically load a `.env` file.
+
+| Settings | Purpose |
+| --- | --- |
+| `COSMOS_ENDPOINT`, `COSMOS_KEY`, `COSMOS_DATABASE`, `COSMOS_CONTAINER` | Required at backend startup |
+| `AzureWebJobsStorage` | Functions storage for the transcription timer; example uses local Azurite |
+| `FUNCTIONS_WORKER_RUNTIME` | Set to `python` |
+| `AI_PROVIDER`, `AI_MODEL`, `GEMINI_API_KEY` | Post-meeting processing; Q&A shares the model and key |
+| `VEXA_BOT_KEY`, `VEXA_TRANSCRIPT_KEY`, `VEXA_API_BASE` | Bot and transcript access; use keys from the same Vexa account |
+| `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`, `JIRA_PROJECT_KEY` | Jira integration |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` | Google Calendar OAuth |
+| `GOOGLE_TOKEN_ENCRYPTION_KEY`, `GOOGLE_CALENDAR_TIME_ZONE` | Persistent token encryption and explicit IANA timezone |
+
+Optional integration credentials are blank in the example. Configure the integrations you want to use. Set `AI_MODEL` to a Gemini model available to your account. For Jira assignee mapping, review the existing account mappings in `backend/jira_service.py`.
+
+For Calendar, register `http://localhost:7071/api/google-calendar/callback` as the OAuth redirect URI and use that same value in settings. Generate a Fernet key once after installing dependencies:
+
+```sh
+python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())'
+```
+
+Save it privately as `GOOGLE_TOKEN_ENCRYPTION_KEY` and retain it across restarts. Choose your workspace timezone; `America/New_York` is the example value. See [Calendar setup](backend/GOOGLE_CALENDAR.md) for consent, scopes and troubleshooting.
+
+### 2. Start the backend
+
+Start Azurite in a separate terminal, then run from `backend/` with the virtual environment active:
+
+```sh
+func start --cors http://localhost:8443
+```
+
+The API defaults to `http://localhost:7071/api`. A timer synchronizes active transcripts every ten seconds. On startup, the backend seeds sample meetings when the meeting repository is empty.
+
+### 3. Start the frontend
+
+In another terminal, from the repository root:
 
 ```sh
 cd frontend
+cp .env.example .env.local
 pnpm install --frozen-lockfile
 pnpm dev
+```
+
+Open `http://localhost:8443`. `VITE_API_BASE_URL` points to the backend; its default is `http://localhost:7071/api`. Restart Vite after changing frontend environment values. Use `localhost` consistently for the API and Google callback.
+
+Frontend `VITE_*` variables are public browser configuration. Keep all service keys and OAuth secrets in backend settings. Private `.env` files and `local.settings.json` are ignored by Git; only blank/safe example files should be committed.
+
+## Checks
+
+From `backend/`, with dependencies installed:
+
+```sh
+python -m unittest discover -s tests -v
+```
+
+The backend tests use mocks/in-memory adapters for service boundaries. They do not establish that live service credentials or deployment work.
+
+From `frontend/`:
+
+```sh
 pnpm typecheck
 pnpm build
-pnpm preview
 ```
 
-`build` runs TypeScript before Vite. No backend or environment variables are needed for the demo. Vite uses the React and Tailwind plugins, with the existing source alias and development port. Page metadata and crawler rules are plain `frontend/index.html` and `frontend/public/robots.txt` files.
+The frontend has separate integration scripts: `pnpm test`, `pnpm test:ai`, `pnpm test:jira`, `pnpm test:google`, `pnpm test:transcription`, and `pnpm test:assistant`. Read each script's host/mocking requirements before running it; some expect a fresh local backend and modify its meeting fixtures. The root package does not provide the application test runner.
 
-## Important structure
+## Repository structure
 
 ```text
-frontend/
-  src/
-    App.tsx                         Existing in-memory screen navigation
-    pages/
-      MeetingsPage.tsx
-      MeetingDetailPage.tsx
-      CalendarPage.tsx
-    components/
-      AppHeader.tsx
-      ui.tsx                        Existing shared visual primitives
-      meetings/                     Meeting card and section
-      meeting-detail/               Context, overview, content, assistant, actions
-      calendar/                     Sidebar, week grid, approvals
-    types/
-      meeting.ts                    Meeting, participant, transcript, decision, action
-      calendar.ts                   Calendar events and follow-up meetings
-      navigation.ts
-    services/
-      meetings.ts                   Meeting list, detail, project grouping metadata
-      assistant.ts                  Existing canned Q&A behavior
-      actionItems.ts                Existing demo ticket conversion
-      calendar.ts                   Existing demo scheduling and approvals
-    mocks/
-      meetings.ts                   List plus shared detail fixture
-      participants.ts
-      assistant.ts
-      actionItems.ts
-      calendar.ts
-    hooks/useAsyncData.ts           Loading, error, stale-response handling
-    config/env.ts                   Future backend base URL
-    utils/calendar.ts              Shared time formatting and filter toggling
-  .env.example
-  public/
-  package.json
-  pnpm-lock.yaml
-  vite.config.ts
-  tsconfig.json
-  index.html
-  .gitignore
-backend/                          Empty
-README.md
+frontend/src/
+  pages/              Meetings, meeting detail, calendar
+  components/         Meeting, assistant, task and calendar UI
+  services/           API calls and shared meeting state
+  types/              Typed frontend contracts
+  mocks/              Demo fixtures and project metadata
+backend/
+  function_app.py     HTTP routes and transcript polling timer
+  meeting_service.py  Meeting and integration workflows
+  cosmos_meeting_repository.py  Persistent storage adapter
+  meeting_intelligence.py      AI validation and normalization
+  gemini_provider.py / meeting_assistant.py  Analysis and Q&A
+  transcription_service.py / vexa_service.py  Transcript ingestion
+  jira_service.py / google_calendar.py        External integrations
+  tests/              Offline backend checks
 ```
 
-Pages load through services. Panels receive typed data as props. Only services import mock fixtures. State stays in React near the screen or panel that uses it; there is no store, event bus, router dependency, or dependency-injection framework.
+## Further documentation
 
-Services return promises now so replacing a mock with an HTTP request does not require rewriting component data loading. Read services return independent copies of fixtures so local edits cannot change later loads. Navigating away still resets the local demo state, matching the source app.
+- [Backend API and local configuration](backend/README.md)
+- [Transcription](backend/TRANSCRIPTION.md)
+- [Vexa integration](VEXA_INTEGRATION.md)
+- [AI processing pipeline](backend/AI_PIPELINE.md)
+- [Ask Synqd](ASK_SYNQD.md)
+- [Google Calendar](backend/GOOGLE_CALENDAR.md)
 
-## First Azure Functions connection
+Some integration documents describe earlier implementation stages. The current source and this README describe the present application setup.
 
-**Edit `frontend/src/services/meetings.ts` first.** Replace `getMeetings()` and `getMeeting(id)` with HTTP/JSON requests while keeping their public return types. The optional grouping metadata is loaded through `getMeetingProjects()` in the same file.
-
-Copy `frontend/.env.example` to `frontend/.env.local` and set `VITE_API_BASE_URL` to your Python Azure Functions base URL, for example `http://localhost:7071/api`. `frontend/src/config/env.ts` exposes this value as `config.apiBaseUrl` and defaults to `/api`. Setting the variable alone does not activate HTTP calls; the current services intentionally remain mock-backed.
-
-For example, the future body of `getMeetings()` can be:
-
-```ts
-// In frontend/src/services/meetings.ts, when the backend is ready:
-import { config } from "../config/env";
-
-export async function getMeetings(): Promise<Meeting[]> {
-  const response = await fetch(`${config.apiBaseUrl}/meetings`);
-  if (!response.ok) throw new Error("Unable to load meetings.");
-  return response.json();
-}
-```
-
-Use `/meetings/${encodeURIComponent(id)}` for detail, return `null` for a missing meeting, and map the backend JSON to the types in `frontend/src/types/meeting.ts` inside the service if needed. The frontend types describe only the existing UI; they are not a Cosmos DB schema. Python owns Cosmos persistence and service credentials. Vite's `VITE_*` variables are public browser configuration.
-
-## Independent next steps, when needed
-
-| Work | Existing boundary |
-| --- | --- |
-| Cosmos persistence | Python HTTP endpoints, consumed by `frontend/src/services/meetings.ts` |
-| Post-meeting analysis | `getMeeting()` supplies typed summary, decisions, agenda, transcript, and action items |
-| Dashboard AI questions | `frontend/src/services/assistant.ts` and `MeetingAssistant.tsx` |
-| Vexa live transcript | `TranscriptEntry` and the transcript view in `MeetingContent.tsx` |
-| Gemini and ElevenLabs live agent | Add a separate live-session service when this feature is built; existing pages do not depend on it |
-| Calendar integration | `frontend/src/services/calendar.ts` and the three calendar panels |
-| Jira integration | `frontend/src/services/actionItems.ts` and `ActionItemsPanel.tsx` |
-
-No external integrations or authentication are implemented. The current canned AI replies, local ticket labels, calendar proposals, and approval messages are preserved, including the existing demo text about invitations. They do not send anything externally. Previously inert controls, including Join Meeting, New Meeting, Open project, and calendar arrows, remain as they were.
-
-The original demo uses one Atlas dashboard fixture for all six meeting cards and one fixed calendar week. Those fixtures are preserved explicitly in `frontend/src/mocks/meetings.ts` and `frontend/src/mocks/calendar.ts`, rather than inventing new content. Unreferenced chart data, imported images, and platform-specific scaffolding have been removed. The existing app and service structure is unchanged.
-
-A simple team split is pages/components for one teammate and services/types/backend contracts for the other. Add a new service only when a feature needs it.
+For deployment, configure backend variables as Azure application settings and frontend configuration at build time; private local settings are not deployed automatically. Configure the deployed frontend's allowed origin and access controls before using real meeting data.

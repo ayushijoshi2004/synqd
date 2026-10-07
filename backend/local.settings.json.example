@@ -1,0 +1,26 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "COSMOS_ENDPOINT": "",
+    "COSMOS_KEY": "",
+    "COSMOS_DATABASE": "",
+    "COSMOS_CONTAINER": "",
+    "AI_PROVIDER": "gemini",
+    "AI_MODEL": "",
+    "GEMINI_API_KEY": "",
+    "VEXA_BOT_KEY": "",
+    "VEXA_TRANSCRIPT_KEY": "",
+    "VEXA_API_BASE": "https://api.cloud.vexa.ai",
+    "JIRA_BASE_URL": "",
+    "JIRA_EMAIL": "",
+    "JIRA_API_TOKEN": "",
+    "JIRA_PROJECT_KEY": "",
+    "GOOGLE_CLIENT_ID": "",
+    "GOOGLE_CLIENT_SECRET": "",
+    "GOOGLE_REDIRECT_URI": "http://localhost:7071/api/google-calendar/callback",
+    "GOOGLE_TOKEN_ENCRYPTION_KEY": "",
+    "GOOGLE_CALENDAR_TIME_ZONE": "America/New_York"
+  }
+}

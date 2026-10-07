@@ -13,3 +13,6 @@ __MACOSX/
 __azurite_db_*.json
 __blobstorage__/
 __queuestorage__/
+
+# Commit safe configuration templates, not private values.
+!**/.env.example
