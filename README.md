@@ -2,6 +2,18 @@
 
 Synqd is a GirlHacks meeting-assistant project built with React, TypeScript, and a Python Azure Functions backend. It brings meeting transcripts, AI-generated summaries, decisions, action items, and follow-up scheduling into one dashboard.
 
+## Typical workflow
+
+Create a meeting and group it under a project, connect the configured transcription service, and synchronize its transcript. Process the transcript to review summaries, decisions and tasks; ask meeting-specific questions, create Jira issues for action items, and approve a suggested follow-up before optionally sending it to Google Calendar.
+
+```text
+React dashboard → Azure Functions → Cosmos DB
+                        ├─ Vexa: meeting bot and transcript
+                        ├─ Gemini: analysis and meeting Q&A
+                        ├─ Jira: action-item issues
+                        └─ Google Calendar: approved follow-up events
+```
+
 ## Implemented features
 
 - Meeting creation, editing, deletion, and project grouping with Azure Cosmos DB persistence.
@@ -18,7 +30,7 @@ External features require your own configured service accounts and credentials. 
 
 | Layer | Technologies |
 | --- | --- |
-| Frontend | React 19, TypeScript, Vite, Tailwind CSS |
+| Frontend | React 19, TypeScript, Vite 8, Tailwind CSS 4, Lucide icons |
 | Backend | Python, Azure Functions v2 programming model |
 | Persistence | Azure Cosmos DB |
 | AI | Gemini REST API for processing; Google Gen AI SDK for Q&A |
